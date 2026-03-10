@@ -4,9 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/websocket"
+	"github.com/joho/godotenv"
 )
 
 type Client struct {
@@ -20,13 +23,21 @@ type authClientResp struct {
 
 func AuthenticateClient(ClientId string, secret string) bool {
 	fmt.Println("Authenticating Client")
-	req, err := http.NewRequest("GET", "http://localhost:3000/api/ws/authClient/"+ClientId+"/"+secret, nil)
+
+	err := godotenv.Load()
+
+	if err != nil {
+		log.Fatal("Error loading .env file")
+		return false
+	}
+
+	req, err := http.NewRequest("GET", os.Getenv("CLIENT_ADDRESS")+"/api/ws/authClient/"+ClientId+"/"+secret, nil)
 	if err != nil {
 		fmt.Println("Req Error")
 		return false
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("authorization", "HelloWorld")
+	req.Header.Set("authorization", os.Getenv("CLIENT_SECRET"))
 
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
