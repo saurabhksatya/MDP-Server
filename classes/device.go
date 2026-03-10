@@ -29,8 +29,10 @@ func AuthenticateDevice(deviceID string, secret string) (bool, string) {
 	err := godotenv.Load()
 
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Println("Error loading .env file")
 	}
+
+	fmt.Println("Yaha aa gaya hai")
 
 	req, err := http.NewRequest("GET", os.Getenv("CLIENT_ADDRESS")+"/api/ws/authDevice/"+deviceID+"/"+secret, nil)
 	if err != nil {
