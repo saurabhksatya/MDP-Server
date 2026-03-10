@@ -32,8 +32,6 @@ func AuthenticateDevice(deviceID string, secret string) (bool, string) {
 		log.Println("Error loading .env file")
 	}
 
-	fmt.Println("Yaha aa gaya hai")
-
 	req, err := http.NewRequest("GET", os.Getenv("CLIENT_ADDRESS")+"/api/ws/authDevice/"+deviceID+"/"+secret, nil)
 	if err != nil {
 		fmt.Println("Req Error")
