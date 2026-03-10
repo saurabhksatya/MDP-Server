@@ -148,6 +148,11 @@ func main() {
 
 	clientCache := NewAuthCache()
 
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/plain")
+		fmt.Fprintf(w, "Websocket Server")
+	})
+
 	r.HandleFunc("/devices/{device_id}/{key}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		deviceID := vars["device_id"]

@@ -28,7 +28,6 @@ func AuthenticateClient(ClientId string, secret string) bool {
 
 	if err != nil {
 		log.Fatal("Error loading .env file")
-		return false
 	}
 
 	req, err := http.NewRequest("GET", os.Getenv("CLIENT_ADDRESS")+"/api/ws/authClient/"+ClientId+"/"+secret, nil)
