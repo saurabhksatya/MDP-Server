@@ -27,7 +27,7 @@ func AuthenticateClient(ClientId string, secret string) bool {
 	err := godotenv.Load()
 
 	if err != nil {
-		log.Println("Error loading .env file")
+		log.Println("Cannot load .env file")
 	}
 
 	req, err := http.NewRequest("GET", os.Getenv("CLIENT_ADDRESS")+"/api/ws/authClient/"+ClientId+"/"+secret, nil)
